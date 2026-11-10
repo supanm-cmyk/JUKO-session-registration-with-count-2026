@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JUKO Sessions 2026</title>
+<style>
+:root {
+  --green: #006B3F;
+  --deep: #004D2C;
+  --yellow: #FFD400;
+  --black: #111111;
+  --white: #FFFFFF;
+  --cell: #F1F2EF;
+  --time: #D9DEDA;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--green);
+  color: var(--black);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.page {
+  width: 100%;
+  max-width: 1900px;
+  margin: 0 auto;
+  padding: clamp(12px, 1.8vw, 28px);
+}
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--white);
+  padding: 4px 4px 20px;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(27px, 3vw, 42px);
+  line-height: 1.1;
+  font-weight: 900;
+}
+.subtitle {
+  margin-top: 10px;
+  color: var(--yellow);
+  font-size: 15px;
+  font-weight: 900;
+}
+.pill {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 9px 14px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.registration {
+  background: var(--deep);
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 14px;
+  padding: 17px 14px;
+  margin: 0 0 20px;
+  text-align: center;
+}
+.registration p {
+  margin: 0 0 11px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+}
+.register-button {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  text-decoration: none;
+  padding: 13px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .3px;
+}
+.register-button:hover { background: white; }
+.schedule {
+  background: var(--black);
+  border: 1px solid #668574;
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 18px;
+}
+.round { margin-bottom: 14px; }
+.round:last-of-type { margin-bottom: 0; }
+.round-title {
+  color: var(--yellow);
+  font-size: 14px;
+  font-weight: 900;
+  margin: 5px 0 12px;
+  letter-spacing: .2px;
+}
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 3px;
+}
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 142px 90px repeat(6, minmax(155px, 1fr));
+  gap: 5px;
+  min-width: 1240px;
+}
+.head-cell, .time-cell, .session-cell, .presentation-cell {
+  border-radius: 8px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 8px;
+}
+.head-cell {
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 10px;
+  line-height: 1.25;
+  font-weight: 900;
+  min-height: 40px;
+}
+.time-cell {
+  background: var(--time);
+  color: var(--black);
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 900;
+  min-height: 66px;
+}
+.session-cell {
+  background: var(--deep);
+  color: white;
+  border: 1px solid var(--yellow);
+  font-size: 13px;
+  font-weight: 900;
+  min-height: 66px;
+}
+.presentation-cell {
+  background: var(--cell);
+  color: var(--black);
+  min-height: 66px;
+  flex-direction: column;
+  gap: 7px;
+}
+.topic {
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+.facilitator {
+  color: #555;
+  font-size: 10px;
+  line-height: 1.3;
+}
+.ask {
+  display: inline-block;
+  width: 100%;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 9px 5px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 900;
+}
+.scroll-note {
+  color: white;
+  font-size: 11px;
+  margin: 12px 0 0;
+}
+.footer {
+  color: white;
+  text-align: center;
+  font-size: 11px;
+  padding: 10px 5px;
+}
+@media (max-width: 700px) {
+  .schedule { padding: 11px; }
+  .registration { padding: 16px 12px; }
+  .register-button { display: block; width: 100%; }
+  .pill { margin-top: 2px; }
+}
+
+.registration-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 900;
+}
+.registration-count .count-number { font-size: 13px; }
+.registration-status {
+  color: rgba(255,255,255,.82);
+  font-size: 10px;
+  text-align: right;
+  margin: 6px 2px 0;
+}
+
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <div>
+      <h1>JUKO SESSIONS 2026</h1>
+      <div class="subtitle">NOVEMBER 19, 2026 · 5:30–8:00 PM</div>
+    </div>
+    <span class="pill">INTRO + 3 SESSION ROUNDS</span>
+  </header>
+
+  <section class="registration">
+    <p>Students and parents: Select your preferred presentations for JUKO 2026.</p>
+    <a class="register-button"
+       href="https://docs.google.com/forms/d/e/1FAIpQLSd-RUpp0azjwakG2QiIs6pPfuv4MphPzzAGDKwCzFW9HzzIpg/viewform?usp=sharing&amp;ouid=106352537967297646363"
+       target="_blank" rel="noopener noreferrer">REGISTER FOR JUKO SESSIONS</a>
+  </section>
+
+  <section class="schedule">
+    <div class="round">
+      <div class="round-title">INTRO · 5:30 PM - 6:00 PM</div>
+      <div class="table-wrap">
+        <div class="schedule-grid">
+          <div class="head-cell">TIME</div><div class="head-cell">SESSIONS</div>
+          <div class="head-cell">FINE ARTS THEATER (FAT)</div><div class="head-cell">AMR</div>
+          <div class="head-cell">LITTLE THEATRE</div><div class="head-cell">HS COUNSELING OFFICE</div>
+          <div class="head-cell">HS FACULTY LOUNGE</div><div class="head-cell">MS FACULTY LOUNGE</div>
+
+          <div class="time-cell">5:30 PM - 6:00 PM</div><div class="session-cell">INTRO</div>
+          <div class="presentation-cell"><div class="topic">Counselor Session with Juniors of Mr. Swan</div></div>
+          <div class="presentation-cell"><div class="topic">Counselor Session with Juniors of Ms. Mayo</div></div>
+          <div class="presentation-cell"><div class="topic">Counselor Session with Juniors of Mr. Johnson</div></div>
+          <div class="presentation-cell"><div class="topic">Counselor Session with Juniors of Ms. Lee</div></div>
+          <div class="presentation-cell"><div class="topic">Counselor Session with Juniors of Mr. Brooks</div></div>
+          <div class="presentation-cell"><div class="topic">Counselor Session with Juniors of Ms. Roth</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-title">SESSION 1 · 6:05 PM - 6:40 PM</div>
+      <div class="table-wrap">
+        <div class="schedule-grid">
+          <div class="head-cell">TIME</div><div class="head-cell">SESSIONS</div>
+          <div class="head-cell">FINE ARTS THEATER (FAT)</div><div class="head-cell">AMR</div>
+          <div class="head-cell">LITTLE THEATRE</div><div class="head-cell">HS COUNSELING OFFICE</div>
+          <div class="head-cell">HS FACULTY LOUNGE</div><div class="head-cell">MS FACULTY LOUNGE</div>
+
+          <div class="time-cell">6:05 PM - 6:40 PM</div><div class="session-cell">1</div>
+          <div class="presentation-cell"><div class="topic">Country Specific Admission Process: USA</div><div class="facilitator">Facilitated by: Mr. Swan</div><span class="registration-count" data-session="Session 1" data-presentation="Country Specific Admission Process: USA" data-venue="FAT"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Country Specific Admission Process: EUROPE</div><div class="facilitator">Facilitated by: Ms. Mayo</div><span class="registration-count" data-session="Session 1" data-presentation="Country Specific Admission Process: EUROPE" data-venue="AMR"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Summer Programs</div><div class="facilitator">Facilitated by: Mr. Johnson</div><span class="registration-count" data-session="Session 1" data-presentation="Summer Programs" data-venue="Little Theatre"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Strengthening your Profile for Health Sciences Program</div><div class="facilitator">Facilitated by: Ms. Lee</div><span class="registration-count" data-session="Session 1" data-presentation="Strengthening your Profile for Health Sciences Program" data-venue="HS Counseling Office"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Country Specific Admission Process: CANADA</div><div class="facilitator">Facilitated by: Mr. Brooks</div><span class="registration-count" data-session="Session 1" data-presentation="Country Specific Admission Process: CANADA" data-venue="HS Faculty Lounge"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Country Specific Admission Process: AUSTRALIA</div><div class="facilitator">Facilitated by: Ms. Roth</div><span class="registration-count" data-session="Session 1" data-presentation="Country Specific Admission Process: AUSTRALIA" data-venue="MS Faculty Lounge"><span class="count-number">0</span> registered</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-title">SESSION 2 · 6:45 PM - 7:20 PM</div>
+      <div class="table-wrap">
+        <div class="schedule-grid">
+          <div class="head-cell">TIME</div><div class="head-cell">SESSIONS</div>
+          <div class="head-cell">FINE ARTS THEATER (FAT)</div><div class="head-cell">AMR</div>
+          <div class="head-cell">LITTLE THEATRE</div><div class="head-cell">HS COUNSELING OFFICE</div>
+          <div class="head-cell">HS FACULTY LOUNGE</div><div class="head-cell">MS FACULTY LOUNGE</div>
+
+          <div class="time-cell">6:45 PM - 7:20 PM</div><div class="session-cell">2</div>
+          <div class="presentation-cell"><div class="topic">Oxford and Cambridge Admission Process</div><div class="facilitator">Facilitated by: Mr. Swan</div><span class="registration-count" data-session="Session 2" data-presentation="Oxford and Cambridge Admission Process" data-venue="FAT"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Country Specific Admission Process: UK</div><div class="facilitator">Facilitated by: Ms. Mayo</div><span class="registration-count" data-session="Session 2" data-presentation="Country Specific Admission Process: UK" data-venue="AMR"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">US Essays</div><div class="facilitator">Facilitated by: Mr. Johnson</div><span class="registration-count" data-session="Session 2" data-presentation="US Essays" data-venue="Little Theatre"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Career Trends and College Majors that Matter</div><div class="facilitator">Facilitated by: Ms. Lee</div><span class="registration-count" data-session="Session 2" data-presentation="Career Trends and College Majors that Matter" data-venue="HS Counseling Office"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Hidden Gems</div><div class="facilitator">Facilitated by: Mr. Brooks</div><span class="registration-count" data-session="Session 2" data-presentation="Hidden Gems" data-venue="HS Faculty Lounge"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Applying to Undegrad Business Programs</div><div class="facilitator">Facilitated by: Ms. Roth</div><span class="registration-count" data-session="Session 2" data-presentation="Applying to Undegrad Business Programs" data-venue="MS Faculty Lounge"><span class="count-number">0</span> registered</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-title">SESSION 3 · 7:25 PM - 8:00 PM</div>
+      <div class="table-wrap">
+        <div class="schedule-grid">
+          <div class="head-cell">TIME</div><div class="head-cell">SESSIONS</div>
+          <div class="head-cell">FINE ARTS THEATER (FAT)</div><div class="head-cell">AMR</div>
+          <div class="head-cell">LITTLE THEATRE</div><div class="head-cell">HS COUNSELING OFFICE</div>
+          <div class="head-cell">HS FACULTY LOUNGE</div><div class="head-cell">MS FACULTY LOUNGE</div>
+
+          <div class="time-cell">7:25 PM - 8:00 PM</div><div class="session-cell">3</div>
+          <div class="presentation-cell"><div class="topic">The Senior Year: What to Expect, and What You Can Do To Help</div><div class="facilitator">Facilitated by: Mr. Swan</div><span class="registration-count" data-session="Session 3" data-presentation="The Senior Year: What to Expect, and What You Can Do To Help" data-venue="FAT"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Country Specific Admission Process: UK</div><div class="facilitator">Facilitated by: Ms. Mayo</div><span class="registration-count" data-session="Session 3" data-presentation="Country Specific Admission Process: UK" data-venue="AMR"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">US Essays</div><div class="facilitator">Facilitated by: Mr. Johnson</div><span class="registration-count" data-session="Session 3" data-presentation="US Essays" data-venue="Little Theatre"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="ask">_ASK ME ANYTHING_</div><span class="registration-count" data-session="Session 3" data-presentation="ASK ME ANYTHING" data-venue="HS Counseling Office"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="topic">Country Specific Admission Process: CANADA</div><div class="facilitator">Facilitated by: Mr. Brooks</div><span class="registration-count" data-session="Session 3" data-presentation="Country Specific Admission Process: CANADA" data-venue="HS Faculty Lounge"><span class="count-number">0</span> registered</span></div>
+          <div class="presentation-cell"><div class="ask">_ASK ME ANYTHING_</div><span class="registration-count" data-session="Session 3" data-presentation="ASK ME ANYTHING" data-venue="MS Faculty Lounge"><span class="count-number">0</span> registered</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="scroll-note">Scroll horizontally on smaller screens to view all six venues.</p>
+  </section>
+
+
+  <p class="registration-status" id="registration-status">Loading live registration counts…</p>
+  <script>
+  (() => {
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4KvhNQyYxc9kxIu1w6XCRXcSp1f_3siStJpEYKN3UBKXCuBj0U4qDmVtZc7Z4kDHhCjTFLozGszQT/pub?gid=1801890541&single=true&output=csv";
+    const status = document.getElementById('registration-status');
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], field = '', quoted = false;
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i], next = text[i + 1];
+        if (quoted) {
+          if (c === '"' && next === '"') { field += '"'; i++; }
+          else if (c === '"') quoted = false;
+          else field += c;
+        } else if (c === '"') quoted = true;
+        else if (c === ',') { row.push(field); field = ''; }
+        else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+        else if (c !== '\r') field += c;
+      }
+      if (field.length || row.length) { row.push(field); rows.push(row); }
+      return rows;
+    }
+
+    function norm(value) {
+      return (value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function venueMatches(csvVenue, targetVenue) {
+      const v = norm(csvVenue);
+      const t = norm(targetVenue);
+      if (t === 'fat') return v === 'fat' || v.includes('fine arts theater');
+      if (t === 'little theatre') return v === 'little theatre';
+      return v === t;
+    }
+
+    fetch(csvUrl, { cache: 'no-store' })
+      .then(response => {
+        if (!response.ok) throw new Error('Could not load the published sheet.');
+        return response.text();
+      })
+      .then(text => {
+        const rows = parseCSV(text);
+        if (!rows.length) throw new Error('The published sheet is empty.');
+        const headers = rows[0].map(norm);
+        const sessionCol = headers.indexOf('session');
+        const presentationCol = headers.indexOf('presentation');
+        const venueCol = headers.indexOf('venue');
+        const countCol = headers.indexOf('registrations');
+        if ([sessionCol, presentationCol, venueCol, countCol].some(i => i < 0))
+          throw new Error('The dashboard columns do not match the expected headings.');
+
+        const records = rows.slice(1).filter(r => r.length);
+        document.querySelectorAll('.registration-count').forEach(el => {
+          const targetSession = norm(el.dataset.session);
+          const targetPresentation = norm(el.dataset.presentation);
+          const targetVenue = el.dataset.venue;
+          const match = records.find(r =>
+            norm(r[sessionCol]) === targetSession &&
+            norm(r[presentationCol]) === targetPresentation &&
+            venueMatches(r[venueCol], targetVenue)
+          );
+          const value = match ? (match[countCol] || '0').trim() : '0';
+          el.querySelector('.count-number').textContent = /^\d+$/.test(value) ? value : '0';
+        });
+        status.textContent = 'Live registration counts · refreshes when this page is reloaded';
+      })
+      .catch(error => {
+        status.textContent = 'Registration counts are temporarily unavailable. Please refresh later.';
+        console.error(error);
+      });
+  })();
+  </script>
+
+  <footer class="footer">JUKO SESSIONS 2026 · INTERNATIONAL SCHOOL MANILA</footer>
+</main>
+</body>
+</html>
