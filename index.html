@@ -359,17 +359,28 @@ h1 {
         return response.text();
       })
       .then(text => {
-        const rows = parseCSV(text);
+        const rows = parseCSV(text.replace(/^\\uFEFF/, ''));
         if (!rows.length) throw new Error('The published sheet is empty.');
-        const headers = rows[0].map(norm);
+
+        // The PUBLIC DASHBOARD has title and summary rows above the table.
+        // Find the real column-header row instead of assuming it is the first row.
+        const headerIndex = rows.findIndex(row => {
+          const cells = row.map(norm);
+          return cells.includes('session') &&
+                 cells.includes('presentation') &&
+                 cells.includes('venue') &&
+                 cells.includes('registrations');
+        });
+        if (headerIndex < 0)
+          throw new Error('Could not find the dashboard table headings in the published CSV.');
+
+        const headers = rows[headerIndex].map(norm);
         const sessionCol = headers.indexOf('session');
         const presentationCol = headers.indexOf('presentation');
         const venueCol = headers.indexOf('venue');
         const countCol = headers.indexOf('registrations');
-        if ([sessionCol, presentationCol, venueCol, countCol].some(i => i < 0))
-          throw new Error('The dashboard columns do not match the expected headings.');
 
-        const records = rows.slice(1).filter(r => r.length);
+        const records = rows.slice(headerIndex + 1).filter(r => r.length);
         document.querySelectorAll('.registration-count').forEach(el => {
           const targetSession = norm(el.dataset.session);
           const targetPresentation = norm(el.dataset.presentation);
@@ -386,7 +397,7 @@ h1 {
       })
       .catch(error => {
         status.textContent = 'Registration counts are temporarily unavailable. Please refresh later.';
-        console.error(error);
+        console.error('JUKO registration feed error:', error);
       });
   })();
   </script>
